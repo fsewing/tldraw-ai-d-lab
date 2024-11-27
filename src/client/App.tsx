@@ -1,12 +1,21 @@
 import { useSync } from '@tldraw/sync'
 import {
 	AssetRecordType,
+	defaultShapeUtils,
 	getHashForString,
 	TLAssetStore,
 	TLBookmarkAsset,
 	Tldraw,
 	uniqueId,
 } from 'tldraw'
+import { CostumIFrameShapeTool, CostumIFrameUtil } from './iframe/customiframe'
+
+import { components, uiOverrides } from './iframe/ui'
+
+import { useMemo } from 'react'
+
+const customShapes = [CostumIFrameUtil]
+const customTools = [CostumIFrameShapeTool]
 
 // const WORKER_URL = `http://localhost:5858`
 const WORKER_URL = `http://172.17.199.178:5858`
@@ -16,6 +25,7 @@ const roomId = 'test-room'
 function App() {
 	// Create a store connected to multiplayer.
 	const store = useSync({
+		shapeUtils: useMemo(() => [...defaultShapeUtils, ...customShapes], []),
 		// We need to know the websocket's URI...
 		uri: `${WORKER_URL}/connect/${roomId}`,
 		// ...and how to handle static assets like images & videos
@@ -28,6 +38,10 @@ function App() {
 				// we can pass the connected store into the Tldraw component which will handle
 				// loading states & enable multiplayer UX like cursors & a presence menu
 				store={store}
+				shapeUtils={customShapes}
+				tools={customTools}
+				overrides={uiOverrides}
+				components={components}
 				onMount={(editor) => {
 					// @ts-expect-error
 					window.editor = editor

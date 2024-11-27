@@ -1,6 +1,8 @@
 import { RoomSnapshot, TLSocketRoom } from '@tldraw/sync-core'
 import { mkdir, readFile, writeFile } from 'fs/promises'
 import { join } from 'path'
+import { createTLSchema, defaultShapeSchemas, defaultBindingSchemas, T } from 'tldraw'
+
 
 // For this example we're just saving data to the local filesystem
 const DIR = './.rooms'
@@ -41,12 +43,33 @@ export async function makeOrLoadRoom(roomId: string) {
 			}
 			console.log('loading room', roomId)
 			const initialSnapshot = await readSnapshotIfExists(roomId)
+			
+			const schema = createTLSchema({
+				shapes: {
+					...defaultShapeSchemas,
+
+					customiframe:{
+						props: {
+							h: T.positiveNumber,
+							w: T.positiveNumber,
+							text: T.string,
+						},
+						
+					},
+			
+					// the schema knows about this shape, but it has no migrations or validation
+					mySimpleShape: {},
+					
+				},
+				//bindings: defaultBindingSchemas,
+			})
 
 			const roomState: RoomState = {
 				needsPersist: false,
 				id: roomId,
 				room: new TLSocketRoom({
 					initialSnapshot,
+					schema: schema,
 					onSessionRemoved(room, args) {
 						console.log('client disconnected', args.sessionId, roomId)
 						if (args.numSessionsRemaining === 0) {
