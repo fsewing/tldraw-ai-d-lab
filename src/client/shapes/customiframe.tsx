@@ -32,33 +32,7 @@ export class CostumIFrameUtil extends BaseBoxShapeUtil<CostumIFrameShape> {
 		
 		const isEditing = this.editor.getEditingShapeId() === shape.id	
 		const [isRequested, setIsRequested] = useState(false);
-
 		const ref = useRef<HTMLDivElement>(null)
-
-		useEffect(() => {
-			const elm = ref.current
-			if (!elm) return
-			if (isRequested) {
-				elm.style.transform = `rotateX(0deg) translateY(0px) translateZ(0px)`
-			} else {
-				elm.style.transform = `rotateZ(60deg)`
-			}
-		}, [isRequested])
-
-		const onClick = (event: MouseEvent, request: boolean) => {
-			event.stopPropagation();
-			setIsRequested(request); // Aktualisiere den Status
-		};
-		
-		// const onClick = (event: MouseEvent) => {
-		// 	event.stopPropagation()
-		// 	setIsRequested(true); 
-		// 	// this.editor.updateShape({
-		// 	// 	id: shape.id,
-		// 	// 	type: 'counter',
-		// 	// 	props: { count: shape.props.count + change },
-		// 	// })
-		// }
 		return (
 			<HTMLContainer
 				id={shape.id}

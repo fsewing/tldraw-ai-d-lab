@@ -8,14 +8,15 @@ import {
 	Tldraw,
 	uniqueId,
 } from 'tldraw'
-import { CostumIFrameShapeTool, CostumIFrameUtil } from './iframe/customiframe'
+import { CostumIFrameShapeTool, CostumIFrameUtil } from './shapes/customiframe'
+import { YoutubeVideoShapeTool, YoutubeVideoUtil } from './shapes/youtubevideo'
 
-import { components, uiOverrides } from './iframe/ui'
+import { components, uiOverrides } from './shapes/ui'
 
 import { useMemo } from 'react'
 
-const customShapes = [CostumIFrameUtil]
-const customTools = [CostumIFrameShapeTool]
+const customShapes = [CostumIFrameUtil, YoutubeVideoUtil]
+const customTools = [CostumIFrameShapeTool, YoutubeVideoShapeTool]
 
 // const WORKER_URL = `http://localhost:5858`
 const WORKER_URL = `http://172.17.199.178:5858`

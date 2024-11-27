@@ -56,9 +56,18 @@ export async function makeOrLoadRoom(roomId: string) {
 						},
 						
 					},
+
+					youtubevideo:{
+						props: {
+							h: T.positiveNumber,
+							w: T.positiveNumber,
+							text: T.string,
+						},
+						
+					},
 			
-					// the schema knows about this shape, but it has no migrations or validation
-					mySimpleShape: {},
+					// // the schema knows about this shape, but it has no migrations or validation
+					// mySimpleShape: {},
 					
 				},
 				//bindings: defaultBindingSchemas,
