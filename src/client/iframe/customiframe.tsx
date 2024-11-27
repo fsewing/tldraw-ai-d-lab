@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react'
+import { MouseEvent, useEffect, useRef, useState } from 'react'
 import {
 	BaseBoxShapeTool,
 	BaseBoxShapeUtil,
@@ -29,22 +29,41 @@ export class CostumIFrameUtil extends BaseBoxShapeUtil<CostumIFrameShape> {
 		return true
 	}
 	override component(shape: CostumIFrameShape) {
-		const isEditing = this.editor.getEditingShapeId() === shape.id
-
-		// const onClick = (event: MouseEvent, change: number) => {
-		// 	event.stopPropagation()
-		// 	this.editor.updateShape({
-		// 		id: shape.id,
-		// 		type: 'customiframe',
-		// 		props: { count: shape.props.text + change },
-		// 	})
-		// }
 		
+		const isEditing = this.editor.getEditingShapeId() === shape.id	
+		const [isRequested, setIsRequested] = useState(false);
 
+		const ref = useRef<HTMLDivElement>(null)
+
+		useEffect(() => {
+			const elm = ref.current
+			if (!elm) return
+			if (isRequested) {
+				elm.style.transform = `rotateX(0deg) translateY(0px) translateZ(0px)`
+			} else {
+				elm.style.transform = `rotateZ(60deg)`
+			}
+		}, [isRequested])
+
+		const onClick = (event: MouseEvent) => {
+			event.stopPropagation();
+			setIsRequested(true); // Aktualisiere den Status
+		};
+		
+		// const onClick = (event: MouseEvent) => {
+		// 	event.stopPropagation()
+		// 	setIsRequested(true); 
+		// 	// this.editor.updateShape({
+		// 	// 	id: shape.id,
+		// 	// 	type: 'counter',
+		// 	// 	props: { count: shape.props.count + change },
+		// 	// })
+		// }
 		return (
 			<HTMLContainer
 				id={shape.id}
 				onPointerDown={isEditing ? stopEventPropagation : undefined}
+				// onMouseEnter={(e) => onClick(e)}
 				style={{
 					pointerEvents: 'all',
 					background: '#000',
@@ -55,11 +74,9 @@ export class CostumIFrameUtil extends BaseBoxShapeUtil<CostumIFrameShape> {
 				}}
 			>
 				{isEditing ? (
-
 					<input
 						type="text"
 						placeholder="Enter a url..."
-						value="https://aid-lab.hfg-gmuend.de/"
 						onChange={(e) =>
 							this.editor.updateShape<CostumIFrameShape>({
 							id: shape.id,
@@ -68,9 +85,22 @@ export class CostumIFrameUtil extends BaseBoxShapeUtil<CostumIFrameShape> {
 							})
 						}					
 					/>
-				) : (
-					<iframe id="customIFrame" width="640" height="360"  src={shape.props.text}/>
-				)}	
+				):(<div>
+				{isRequested? 
+					(<iframe id="custom-iframe" title="custom iFrame" width="640" height="315" src={shape.props.text} />)
+				:
+					(<button onClick={(e) => {
+						setIsRequested((p) => !p)
+						stopEventPropagation(e)
+						}} 
+						onPointerDown={(e) => e.stopPropagation()}
+						onTouchStart={(e) => e.stopPropagation()}
+						onTouchEnd={(e) => e.stopPropagation()}
+						>
+						load iframe
+					</button>)}	
+					</div>)
+				}
 			</HTMLContainer>
 		)
 	}
