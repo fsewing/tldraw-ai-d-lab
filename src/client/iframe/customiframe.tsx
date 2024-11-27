@@ -45,9 +45,9 @@ export class CostumIFrameUtil extends BaseBoxShapeUtil<CostumIFrameShape> {
 			}
 		}, [isRequested])
 
-		const onClick = (event: MouseEvent) => {
+		const onClick = (event: MouseEvent, request: boolean) => {
 			event.stopPropagation();
-			setIsRequested(true); // Aktualisiere den Status
+			setIsRequested(request); // Aktualisiere den Status
 		};
 		
 		// const onClick = (event: MouseEvent) => {
@@ -63,7 +63,10 @@ export class CostumIFrameUtil extends BaseBoxShapeUtil<CostumIFrameShape> {
 			<HTMLContainer
 				id={shape.id}
 				onPointerDown={isEditing ? stopEventPropagation : undefined}
-				// onMouseEnter={(e) => onClick(e)}
+				onMouseLeave={(e) => {
+						setIsRequested(false)
+						stopEventPropagation(e)
+						}}
 				style={{
 					pointerEvents: 'all',
 					background: '#000',
@@ -87,10 +90,10 @@ export class CostumIFrameUtil extends BaseBoxShapeUtil<CostumIFrameShape> {
 					/>
 				):(<div>
 				{isRequested? 
-					(<iframe id="custom-iframe" title="custom iFrame" width="640" height="315" src={shape.props.text} />)
+					(<iframe id="custom-iframe" title="custom iFrame" width="660" height="335" src={shape.props.text} />)
 				:
 					(<button onClick={(e) => {
-						setIsRequested((p) => !p)
+						setIsRequested(true)
 						stopEventPropagation(e)
 						}} 
 						onPointerDown={(e) => e.stopPropagation()}
