@@ -5,3 +5,10 @@ body {
 	font-family: 'Inter', sans-serif;
 	overscroll-behavior: none;
 }
+
+input[type="text"].deeplink:not(:focus) {
+	opacity: 0.75;
+}
+button.deeplink:disabled {
+	opacity: 0.5;
+}
