@@ -67,7 +67,7 @@ export class YoutubeVideoUtil extends BaseBoxShapeUtil<YoutubeVideoShape> {
 					alignItems: 'center',
 					justifyContent: 'center',
 					gap: 8,
-					borderRadius: '10px',
+					borderRadius: '5px',
 				}}
 			>
 				{isEditing ? (
@@ -83,7 +83,7 @@ export class YoutubeVideoUtil extends BaseBoxShapeUtil<YoutubeVideoShape> {
 						}					
 					/>
 				):(
-					<iframe width="368" height="207" src={shape.props.text} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+					<iframe width="368" height="207" src={shape.props.text} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
 				)
 				}
 			</HTMLContainer>
