@@ -78,7 +78,7 @@ export class DeepLinkUtil extends BaseBoxShapeUtil<DeepLinkShape> {
 						}}
 				style={{
 					pointerEvents: "all",
-					background: "#000",
+					background: "#f0f000",
 					color: "white",
 					display: "flex",
 					alignItems: "center",
@@ -144,7 +144,7 @@ export class DeepLinkUtil extends BaseBoxShapeUtil<DeepLinkShape> {
 					onPointerDown={(e) => e.stopPropagation()}
 					onTouchStart={(e) => e.stopPropagation()}
 					onTouchEnd={(e) => e.stopPropagation()}
-					// disabled={!isValidUrl(shape.props.deeplinkURL)}
+					disabled={!isValidUrl(shape.props.deeplinkURL)}
 				>
 					<svg
 						style={{
@@ -167,6 +167,7 @@ export class DeepLinkUtil extends BaseBoxShapeUtil<DeepLinkShape> {
 						/>
 					</svg>
 				</button>
+				<p>{shape.props.description}</p>
 				</div>
 				)}
 			</HTMLContainer>
