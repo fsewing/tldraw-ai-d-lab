@@ -6,13 +6,15 @@ import {
 	TLAssetStore,
 	TLBookmarkAsset,
 	Tldraw,
+	TLUiComponents,
 	uniqueId,
 } from "tldraw";
 import { CostumIFrameShapeTool, CostumIFrameUtil } from "./shapes/customiframe";
 import { YoutubeVideoShapeTool, YoutubeVideoUtil } from "./shapes/youtubevideo";
-import { DeepLinkShapeTool, DeepLinkUtil } from "./shapes/deepLink";
+import { DeepLinkShapeTool, DeepLinkUtil } from "./shapes/deeplink";
 
 import { components, uiOverrides } from "./shapes/ui";
+
 
 import { useMemo } from "react";
 
@@ -26,12 +28,13 @@ const customTools = [
 const WORKER_URL = `http://localhost:5858`;
 // const WORKER_URL = `http://aid-playground.hfg-gmuend.de:5858`
 // In this example, the room ID is hard-coded. You can set this however you like though.
-const roomId = "test-room";
+const roomId = "test-room-2";
 
 function App() {
 	// Create a store connected to multiplayer.
 	const store = useSync({
 		shapeUtils: useMemo(() => [...defaultShapeUtils, ...customShapes], []),
+
 		// We need to know the websocket's URI...
 		uri: `${WORKER_URL}/connect/${roomId}`,
 		// ...and how to handle static assets like images & videos

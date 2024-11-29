@@ -1,5 +1,5 @@
 import { DefaultSizeStyle, TldrawUiIcon, track, useEditor } from "tldraw";
-import { isValidUrl } from "./deepLink";
+import { isValidUrl } from "./deeplink";
 import { useRef, useState } from "react";
 
 // [1]

@@ -72,7 +72,8 @@ export async function makeOrLoadRoom(roomId: string) {
 						props: {
 							h: T.positiveNumber,
 							w: T.positiveNumber,
-							text: T.string,
+							deeplinkURL: T.string,
+							description: T.string,
 						},
 					},
 

@@ -10,7 +10,7 @@ import {
 
 type DeepLinkShape = TLBaseShape<
 	"deeplink",
-	{ h: number; w: number; text: string }
+	{ h: number; w: number; deeplinkURL: string, description: string }
 >;
 
 export function isValidUrl(url: string) {
@@ -27,14 +27,16 @@ export class DeepLinkUtil extends BaseBoxShapeUtil<DeepLinkShape> {
 	static override props = {
 		h: T.positiveNumber,
 		w: T.positiveNumber,
-		text: T.string,
+		deeplinkURL: T.string,
+		description: T.string,
 	};
 
 	override getDefaultProps() {
 		return {
 			h: 247,
 			w: 408,
-			text: "",
+			deeplinkURL: "",
+			description: "",
 		};
 	}
 	override canEdit() {
@@ -69,17 +71,11 @@ export class DeepLinkUtil extends BaseBoxShapeUtil<DeepLinkShape> {
 		return (
 			<HTMLContainer
 				id={shape.id}
-				onPointerDown={
-					isEditing
-						? stopEventPropagation
-						: () => {
-								console.log("You are not editing!");
-						  }
-				}
+				onPointerDown={isEditing ? stopEventPropagation : undefined}
 				onMouseLeave={(e) => {
-					setIsRequested(false);
-					stopEventPropagation(e);
-				}}
+						setIsRequested(false)
+						stopEventPropagation(e)
+						}}
 				style={{
 					pointerEvents: "all",
 					background: "#000",
@@ -92,27 +88,33 @@ export class DeepLinkUtil extends BaseBoxShapeUtil<DeepLinkShape> {
 					position: "relative",
 				}}
 			>
-				<label title="dwq">
+				{isEditing ? (
+					<div>
 					<input
-						className="deeplink"
-						style={{
-							border: "none",
-							borderRadius: "5px",
-							padding: "5px",
-							fontSize: "1rem",
-						}}
 						type="text"
-						name="deep"
-						placeholder="URL"
-						value={value}
-						onInput={(e) => {
-							setValue(e.currentTarget.value);
-						}}
-						onBlur={(_) => {
-							ref.current?.focus();
-						}}
+						placeholder="Enter a Deeplink URL ..."
+						onChange={(e) =>
+							this.editor.updateShape<DeepLinkShape>({
+							id: shape.id,
+							type: 'deeplink',
+							props: { deeplinkURL: e.currentTarget.value },
+							})
+						}					
 					/>
-				</label>
+					<input
+						type="text"
+						placeholder="Enter a Description ..."
+						onChange={(e) =>
+							this.editor.updateShape<DeepLinkShape>({
+							id: shape.id,
+							type: 'deeplink',
+							props: { description: e.currentTarget.value },
+							})
+						}					
+					/>
+					</div>
+				):(
+				<div>
 				<button
 					ref={ref}
 					className="deeplink"
@@ -136,9 +138,13 @@ export class DeepLinkUtil extends BaseBoxShapeUtil<DeepLinkShape> {
 					}}
 					title="Click to navigate to the deep link"
 					onClick={(e) => {
-						this.editor.navigateToDeepLink({ url: value });
+						this.editor.navigateToDeepLink({ url: shape.props.deeplinkURL });
+						stopEventPropagation(e)
 					}}
-					disabled={!isValidUrl(value)}
+					onPointerDown={(e) => e.stopPropagation()}
+					onTouchStart={(e) => e.stopPropagation()}
+					onTouchEnd={(e) => e.stopPropagation()}
+					// disabled={!isValidUrl(shape.props.deeplinkURL)}
 				>
 					<svg
 						style={{
@@ -154,13 +160,15 @@ export class DeepLinkUtil extends BaseBoxShapeUtil<DeepLinkShape> {
 						xmlns="http://www.w3.org/2000/svg"
 					>
 						<path
-							fill-rule="evenodd"
-							clip-rule="evenodd"
+							fillRule="evenodd"
+							clipRule="evenodd"
 							d="M12.3168 6.27013C12.7197 5.8924 13.3525 5.91281 13.7303 6.31573L21.2303 14.3157C21.5909 14.7004 21.5909 15.299 21.2303 15.6836L13.7303 23.6836C13.3525 24.0865 12.7197 24.1069 12.3168 23.7292C11.9139 23.3515 11.8935 22.7186 12.2712 22.3157L19.13 14.9997L12.2712 7.68361C11.8935 7.2807 11.9139 6.64786 12.3168 6.27013Z"
 							fill="white"
 						/>
 					</svg>
 				</button>
+				</div>
+				)}
 			</HTMLContainer>
 		);
 	}

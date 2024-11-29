@@ -42,32 +42,29 @@ export const uiOverrides: TLUiOverrides = {
 		return tools;
 	},
 };
-/*
-const components: Required<TLUiComponents> = {
-	ContextMenu: null,
+
+export const components: TLComponents = {
+	// ContextMenu: null,
 	ActionsMenu: null,
 	HelpMenu: null,
-	ZoomMenu: null,
+	// ZoomMenu: null,
 	MainMenu: null,
-	Minimap: null,
+	// Minimap: null,
 	StylePanel: null,
-	PageMenu: null,
-	NavigationPanel: null,
-	Toolbar: null,
-	KeyboardShortcutsDialog: null,
+	// PageMenu: null,
+	// NavigationPanel: null,
+	// Toolbar: null,
+	// KeyboardShortcutsDialog: null,
 	QuickActions: null,
 	HelperButtons: null,
 	DebugPanel: null,
 	DebugMenu: null,
-	SharePanel: null,
-	MenuPanel: null,
-	TopPanel: null,
+	// SharePanel: null,
+	// MenuPanel: null,
+	// TopPanel: null,
 	CursorChatBubble: null,
-}
-*/
-
-export const components: TLComponents = {
-	InFrontOfTheCanvas: DeepLinkToolbarComponent,
+	
+	//InFrontOfTheCanvas: DeepLinkToolbarComponent,
 	Toolbar: (props) => {
 		const tools = useTools();
 		const isIFrameSelected = useIsToolSelected(tools["customiframe"]);
