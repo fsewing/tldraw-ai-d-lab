@@ -5,7 +5,10 @@
 	"compilerOptions": {
 		"noEmit": true,
 		"emitDeclarationOnly": false,
-		"types": ["bun", "node"]
+		"types": ["bun", "node"],
+		"paths": {
+			"@/icons": ["./src/client/assets/icons/*"]
+		}
 	},
 	"references": []
 }

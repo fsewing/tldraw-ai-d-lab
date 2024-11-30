@@ -13,8 +13,7 @@ import { CostumIFrameShapeTool, CostumIFrameUtil } from "./shapes/customiframe";
 import { YoutubeVideoShapeTool, YoutubeVideoUtil } from "./shapes/youtubevideo";
 import { DeepLinkShapeTool, DeepLinkUtil } from "./shapes/deeplink";
 
-import { components, uiOverrides } from "./shapes/ui";
-
+import { components, customAssetUrls, uiOverrides } from "./shapes/ui";
 
 import { useMemo } from "react";
 
@@ -49,6 +48,7 @@ function App() {
 				store={store}
 				shapeUtils={customShapes}
 				tools={customTools}
+				assetUrls={customAssetUrls}
 				overrides={uiOverrides}
 				components={components}
 				onMount={(editor) => {

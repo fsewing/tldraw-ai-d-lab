@@ -6,6 +6,7 @@ import {
 	TldrawUiMenuItem,
 	useIsToolSelected,
 	useTools,
+	TLUiAssetUrlOverrides,
 } from "tldraw";
 import { DeepLinkToolbarComponent } from "./DeepLinkToolbar";
 
@@ -14,8 +15,8 @@ export const uiOverrides: TLUiOverrides = {
 		// Create a tool item in the ui's context.
 		tools.customiframe = {
 			id: "customiframe",
-			icon: "color",
-			label: "customiframe",
+			icon: "customiframe",
+			label: "iframe",
 			kbd: "i",
 			onSelect: () => {
 				editor.setCurrentTool("customiframe");
@@ -23,18 +24,18 @@ export const uiOverrides: TLUiOverrides = {
 		};
 		tools.youtubevideo = {
 			id: "youtubevideo",
-			icon: "color",
-			label: "youtubevideo",
-			kbd: "i",
+			icon: "youtubevideo",
+			label: "YouTube",
+			kbd: "y",
 			onSelect: () => {
 				editor.setCurrentTool("youtubevideo");
 			},
 		};
 		tools.deeplink = {
 			id: "deeplink",
-			icon: "color",
-			label: "deeplink",
-			kbd: "i",
+			icon: "deeplink",
+			label: "Deep Link",
+			kbd: "shift+l",
 			onSelect: () => {
 				editor.setCurrentTool("deeplink");
 			},
@@ -63,7 +64,7 @@ export const components: TLComponents = {
 	// MenuPanel: null,
 	// TopPanel: null,
 	CursorChatBubble: null,
-	
+
 	//InFrontOfTheCanvas: DeepLinkToolbarComponent,
 	Toolbar: (props) => {
 		const tools = useTools();
@@ -90,5 +91,14 @@ export const components: TLComponents = {
 				<DefaultToolbarContent />
 			</DefaultToolbar>
 		);
+	},
+};
+
+export const customAssetUrls: TLUiAssetUrlOverrides = {
+	// relative from the file that requests the assets (e.g. App.tsx)
+	icons: {
+		customiframe: "./assets/icons/customiframe.svg",
+		youtubevideo: "./assets/icons/youtubevideo.svg",
+		deeplink: "./assets/icons/deeplink.svg",
 	},
 };
