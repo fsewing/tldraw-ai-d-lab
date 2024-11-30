@@ -1,4 +1,3 @@
-import { MouseEvent, useEffect, useRef, useState } from 'react'
 import {
 	BaseBoxShapeTool,
 	BaseBoxShapeUtil,
@@ -6,36 +5,42 @@ import {
 	T,
 	TLBaseShape,
 	stopEventPropagation,
-} from 'tldraw'
+} from "tldraw";
+import { parseYouTubeUrl } from "../ts/functions";
 
-type YoutubeVideoShape = TLBaseShape<'youtubevideo', { h: number, w: number, text: string }>
+type YoutubeVideoShape = TLBaseShape<
+	"youtubevideo",
+	{ h: number; w: number; text: string }
+>;
+
+const DEFAULT_YOUTUBE_URL = "https://www.youtube.com/embed/dQw4w9WgXcQ";
 
 export class YoutubeVideoUtil extends BaseBoxShapeUtil<YoutubeVideoShape> {
-	static override type = 'youtubevideo' as const
+	static override type = "youtubevideo" as const;
 	static override props = {
 		h: T.positiveNumber,
 		w: T.positiveNumber,
 		text: T.string,
-	}
+	};
 
 	override getDefaultProps() {
 		return {
-			h: 247,
-			w: 408,
-			text: "",
-		}
+			h: 200,
+			w: 355,
+			text: DEFAULT_YOUTUBE_URL,
+		};
 	}
 	override canEdit() {
-		return true
+		return true;
 	}
 	override canResize() {
-		return false
+		return true;
 	}
 	override hideRotateHandle() {
-		return true
+		return true;
 	}
 	override isAspectRatioLocked() {
-		return true
+		return true;
 	}
 
 	// override getGeometry() {
@@ -47,55 +52,65 @@ export class YoutubeVideoUtil extends BaseBoxShapeUtil<YoutubeVideoShape> {
 	// 		isFilled: true,
 	// 	})
 	// }
+
 	override component(shape: YoutubeVideoShape) {
-		
-		const isEditing = this.editor.getEditingShapeId() === shape.id	
-		const [isRequested, setIsRequested] = useState(false);
-		const ref = useRef<HTMLDivElement>(null)
+		const isEditing = this.editor.getEditingShapeId() === shape.id;
+		const url = parseYouTubeUrl(shape.props.text) || DEFAULT_YOUTUBE_URL;
+
 		return (
 			<HTMLContainer
 				id={shape.id}
 				onPointerDown={isEditing ? stopEventPropagation : undefined}
 				onMouseLeave={(e) => {
-						setIsRequested(false)
-						stopEventPropagation(e)
-						}}
+					stopEventPropagation(e);
+				}}
 				style={{
-					pointerEvents: 'all',
-					background: '#000',
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'center',
+					pointerEvents: "all",
+					background: "#000",
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "center",
 					gap: 8,
-					borderRadius: '5px',
+					borderRadius: "5px",
 				}}
 			>
 				{isEditing ? (
 					<input
 						type="text"
-						placeholder="Enter a youtube iFrame ..."
-						onChange={(e) =>
+						className="input"
+						value={shape.props.text}
+						placeholder="Enter a YouTube URL..."
+						onChange={(e) => {
 							this.editor.updateShape<YoutubeVideoShape>({
-							id: shape.id,
-							type: 'youtubevideo',
-							props: { text: e.currentTarget.value },
-							})
-						}					
+								id: shape.id,
+								type: "youtubevideo",
+								props: {
+									text: e.currentTarget.value,
+								},
+							});
+						}}
 					/>
-				):(
-					<iframe width="368" height="207" src={shape.props.text} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-				)
-				}
+				) : (
+					<iframe
+						width="100%"
+						height="100%"
+						src={url}
+						title="YouTube video player"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						referrerPolicy="strict-origin-when-cross-origin"
+						allowFullScreen
+					></iframe>
+				)}
 			</HTMLContainer>
-		)
+		);
 	}
 
 	override indicator(shape: YoutubeVideoShape) {
-		return <rect width={shape.props.w} height={shape.props.h} />
+		return <rect width={shape.props.w} height={shape.props.h} />;
 	}
 }
 
 export class YoutubeVideoShapeTool extends BaseBoxShapeTool {
-	static override id = 'youtubevideo'
-	override shapeType = 'youtubevideo'
+	static override id = "youtubevideo";
+	override shapeType = "youtubevideo";
 }
