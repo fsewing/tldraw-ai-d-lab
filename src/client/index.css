@@ -1,14 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;700@400;700&display=swap');
-@import url('tldraw/tldraw.css');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500;700@400;700&display=swap");
+@import url("tldraw/tldraw.css");
 
 body {
-	font-family: 'Inter', sans-serif;
+	font-family: "Inter", sans-serif;
 	overscroll-behavior: none;
 }
 
 input[type="text"].deeplink:not(:focus) {
 	opacity: 0.75;
 }
+
 button.deeplink:disabled {
 	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.debug {
+	outline: 1px solid red;
+}
+
+/* Container für das Input- oder Formularelement */
+.input {
+	background-color: #f8f9fa; /* Helles Grau für Light Mode */
+	padding: 0.75rem 1rem; /* px-4 py-3 in Tailwind */
+	outline: none;
+	width: 280px; /* w-[280px] */
+	color: #333333; /* Textfarbe für Light Mode */
+	border-radius: 0.5rem; /* Rounded corners (rounded-lg) */
+	border: 2px solid #d1d5db; /* Standardrahmen (border-[#2B3040]) */
+	transition: border-color 0.1s ease-in-out; /* Transition für den Hover-Effekt */
+}
+
+/* Fokuszustand */
+.input:focus {
+	border-color: #596a95; /* Fokusfarbe (focus:border-[#596A95]) */
 }
