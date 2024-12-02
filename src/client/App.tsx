@@ -24,8 +24,8 @@ const customTools = [
 	DeepLinkShapeTool,
 ];
 
-const WORKER_URL = `http://localhost:5858`;
-// const WORKER_URL = `http://aid-playground.hfg-gmuend.de:5858`
+// const WORKER_URL = `http://localhost:5858`;
+const WORKER_URL = `http://aid-playground.hfg-gmuend.de:5858`
 // In this example, the room ID is hard-coded. You can set this however you like though.
 // const roomId = "test-room-2";
 const roomId = "digital-lab";

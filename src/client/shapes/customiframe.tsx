@@ -64,6 +64,7 @@ export class CostumIFrameUtil extends BaseBoxShapeUtil<CostumIFrameShape> {
 					alignItems: "center",
 					justifyContent: "center",
 					gap: 8,
+					borderRadius: "4px",
 				}}
 			>
 				{isEditing ? (
@@ -75,13 +76,22 @@ export class CostumIFrameUtil extends BaseBoxShapeUtil<CostumIFrameShape> {
 						onChange={handleChange}
 					/>
 				) : (
-					<div style={{ width: "100%", height: "100%" }}>
+					<div style={{ 
+						width: "100%", 
+						height: "100%", 
+						display: "block",
+						overflow: "hidden",
+						borderRadius: "4px",
+						padding: "5px"
+					}}>
 						{isRequested ? (
 							<iframe
+								style={{borderRadius:"4px", transform: "scale(0.5)", transformOrigin: "top left"}}
 								id="custom-iframe"
 								title="This is a custom iframe"
-								width="100%"
-								height="100%"
+								width="200%"
+								height="200%"
+								frameBorder="0"
 								src={
 									isValidUrl(shape.props.text)
 										? shape.props.text

@@ -91,15 +91,26 @@ export class YoutubeVideoUtil extends BaseBoxShapeUtil<YoutubeVideoShape> {
 						}}
 					/>
 				) : (
+					<div style={{
+						display: "block",
+						overflow: "hidden",
+						width: "100%",
+						height: "100%",
+						borderRadius: "4px",
+						padding: "5px"
+					}}>
 					<iframe
-						width="100%"
-						height="100%"
+						style={{borderRadius:"4px", transform: "scale(0.5)", transformOrigin: "top left"}}
+						width="200%"
+						height="200%"
 						src={url}
+						frameBorder="0"
 						title="YouTube video player"
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 						referrerPolicy="strict-origin-when-cross-origin"
 						allowFullScreen
 					></iframe>
+					</div>
 				)}
 			</HTMLContainer>
 		);
