@@ -25,8 +25,8 @@ export class YoutubeVideoUtil extends BaseBoxShapeUtil<YoutubeVideoShape> {
 
 	override getDefaultProps() {
 		return {
-			h: 200,
-			w: 355,
+			h: 90,
+			w: 160,
 			text: DEFAULT_YOUTUBE_URL,
 		};
 	}
