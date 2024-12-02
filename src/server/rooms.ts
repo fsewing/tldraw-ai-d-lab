@@ -78,7 +78,7 @@ export async function makeOrLoadRoom(roomId: string) {
 					},
 
 					// // the schema knows about this shape, but it has no migrations or validation
-					// mySimpleShape: {},
+					mySimpleShape: {},
 				},
 				//bindings: defaultBindingSchemas,
 			});

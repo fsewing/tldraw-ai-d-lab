@@ -46,25 +46,25 @@ export const uiOverrides: TLUiOverrides = {
 
 export const components: TLComponents = {
 	// ContextMenu: null,
-	ActionsMenu: null,
-	HelpMenu: null,
+	// ActionsMenu: null,
+	// HelpMenu: null,
 	// ZoomMenu: null,
-	MainMenu: null,
+	// MainMenu: null,
 	// Minimap: null,
-	StylePanel: null,
+	// StylePanel: null,
 	// PageMenu: null,
 	// NavigationPanel: null,
 	// Toolbar: null,
 	// KeyboardShortcutsDialog: null,
-	QuickActions: null,
-	HelperButtons: null,
-	DebugPanel: null,
-	DebugMenu: null,
+	// QuickActions: null,
+	// HelperButtons: null,
+	// DebugPanel: null,
+	// DebugMenu: null,
 	// SharePanel: null,
 	// MenuPanel: null,
 	// TopPanel: null,
-	CursorChatBubble: null,
-
+	// CursorChatBubble: null,
+	
 	//InFrontOfTheCanvas: DeepLinkToolbarComponent,
 	Toolbar: (props) => {
 		const tools = useTools();

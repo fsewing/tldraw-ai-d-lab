@@ -27,7 +27,8 @@ const customTools = [
 const WORKER_URL = `http://localhost:5858`;
 // const WORKER_URL = `http://aid-playground.hfg-gmuend.de:5858`
 // In this example, the room ID is hard-coded. You can set this however you like though.
-const roomId = "test-room-2";
+// const roomId = "test-room-2";
+const roomId = "digital-lab";
 
 function App() {
 	// Create a store connected to multiplayer.
@@ -55,11 +56,10 @@ function App() {
 					// @ts-expect-error
 					window.editor = editor;
 					// when the editor is ready, we need to register out bookmark unfurling service
-					editor.registerExternalAssetHandler(
-						"url",
-						unfurlBookmarkUrl
-					);
+					editor.registerExternalAssetHandler('url', unfurlBookmarkUrl);
+					
 				}}
+
 				deepLinks={{
 					// log the new search params to the console instead of updating `window.location`
 					onChange(url, editor) {
