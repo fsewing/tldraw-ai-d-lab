@@ -43,8 +43,8 @@ app.register(async (app) => {
 	})
 
 	// To enable unfurling of bookmarks, we add a simple endpoint that takes a URL query param
-	app.get('/unfurl', async (req, res) => {
-		const url = (req.query as any).url as string
+	app.get('/unfurl_test/:url', async (req, res) => {
+		const url = (req.params as any).url as string
 		res.send(await unfurl(url))
 	})
 })

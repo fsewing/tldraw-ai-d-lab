@@ -86,11 +86,11 @@ export class CostumIFrameUtil extends BaseBoxShapeUtil<CostumIFrameShape> {
 					}}>
 						{isRequested ? (
 							<iframe
-								style={{borderRadius:"4px", transform: "scale(0.5)", transformOrigin: "top left"}}
+								style={{borderRadius:"4px", transform: "scale(0.75)", transformOrigin: "top left"}}
 								id="custom-iframe"
 								title="This is a custom iframe"
-								width="200%"
-								height="200%"
+								width="133%"
+								height="133%"
 								frameBorder="0"
 								src={
 									isValidUrl(shape.props.text)

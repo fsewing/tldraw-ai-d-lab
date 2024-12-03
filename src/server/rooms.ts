@@ -6,6 +6,8 @@ import {
 	defaultShapeSchemas,
 	defaultBindingSchemas,
 	T,
+	TLDefaultColorStyle,
+	DefaultColorStyle,
 } from "tldraw";
 
 // For this example we're just saving data to the local filesystem
@@ -74,6 +76,15 @@ export async function makeOrLoadRoom(roomId: string) {
 							w: T.positiveNumber,
 							url: T.string,
 							description: T.string,
+						},
+					},
+
+					customnote: {
+						props: {
+							h: T.positiveNumber,
+							w: T.positiveNumber,
+							text: T.string,
+							color: T.string,
 						},
 					},
 

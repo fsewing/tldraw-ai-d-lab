@@ -40,6 +40,24 @@ export const uiOverrides: TLUiOverrides = {
 				editor.setCurrentTool("deeplink");
 			},
 		};
+		tools.customnote = {
+			id: "customnote",
+			icon: "deeplink",
+			label: "Sticky Note",
+			kbd: "shift+n",
+			onSelect: () => {
+				editor.setCurrentTool("customnote");
+			},
+		};
+		tools.customnote = {
+			id: "note",
+			icon: "deeplink",
+			label: "Sticky Note",
+			kbd: "n",
+			onSelect: () => {
+				editor.setCurrentTool("note");
+			},
+		};
 		return tools;
 	},
 };
@@ -73,9 +91,15 @@ export const components: TLComponents = {
 			tools["youtubevideo"]
 		);
 		const isDeepLinkToolSelected = useIsToolSelected(tools["deeplink"]);
+		const isCustomStickyNoteToolSelected = useIsToolSelected(tools["customnote"]);
+		const isStickyNoteToolSelected = useIsToolSelected(tools["note"]);
 
 		return (
 			<DefaultToolbar {...props}>
+				{/* <TldrawUiMenuItem
+					{...tools["hand"]}
+					isSelected={isHandToolSelected}
+				/> */}
 				<TldrawUiMenuItem
 					{...tools["customiframe"]}
 					isSelected={isIFrameSelected}
@@ -88,7 +112,11 @@ export const components: TLComponents = {
 					{...tools["deeplink"]}
 					isSelected={isDeepLinkToolSelected}
 				/>
-				<DefaultToolbarContent />
+				<TldrawUiMenuItem
+					{...tools["note"]}
+					isSelected={isStickyNoteToolSelected}
+				/>
+				{/* <DefaultToolbarContent /> */}
 			</DefaultToolbar>
 		);
 	},
