@@ -116,7 +116,7 @@ export const components: TLComponents = {
 					{...tools["note"]}
 					isSelected={isStickyNoteToolSelected}
 				/> */}
-				{/* <DefaultToolbarContent /> */}
+				<DefaultToolbarContent />
 			</DefaultToolbar>
 		);
 	},
