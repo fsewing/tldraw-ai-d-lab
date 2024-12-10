@@ -14,12 +14,12 @@ import {
 import { CostumIFrameShapeTool, CostumIFrameUtil } from "./shapes/customiframe";
 import { YoutubeVideoShapeTool, YoutubeVideoUtil } from "./shapes/youtubevideo";
 import { DeepLinkShapeTool, DeepLinkUtil } from "./shapes/deeplink";
-import { CustomStickyNoteShapeTool, CustomStickyNoteUtil } from "./shapes/customStickyNote";
+// import { CustomStickyNoteShapeTool, CustomStickyNoteUtil } from "./shapes/customStickyNote";
 
 import { components, customAssetUrls, uiOverrides } from "./shapes/ui";
 
 import { useMemo } from "react";
-import { unfurl } from "../server/unfurl";
+// import { unfurl } from "../server/unfurl";
 // DefaultColorThemePalette.lightMode.black.solid = "rgb(252, 225, 156)"
 // DefaultColorThemePalette.lightMode.grey.solid = "rgb(0, 0, 0)"
 

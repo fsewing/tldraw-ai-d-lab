@@ -112,10 +112,10 @@ export const components: TLComponents = {
 					{...tools["deeplink"]}
 					isSelected={isDeepLinkToolSelected}
 				/>
-				<TldrawUiMenuItem
+				{/* <TldrawUiMenuItem
 					{...tools["note"]}
 					isSelected={isStickyNoteToolSelected}
-				/>
+				/> */}
 				{/* <DefaultToolbarContent /> */}
 			</DefaultToolbar>
 		);
