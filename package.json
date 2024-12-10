@@ -18,7 +18,9 @@
 		"test-ci": "echo 'No tests yet'",
 		"test": "yarn run -T jest --passWithNoTests",
 		"test-coverage": "lazy inherit",
-		"lint": "yarn run -T tsx ../../scripts/lint.ts"
+		"lint": "yarn run -T tsx ../../scripts/lint.ts",
+		"build": "vite build",
+		"preview": "vite preview"
 	},
 	"devDependencies": {
 		"@types/bun": "^1.1.6",

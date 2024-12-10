@@ -33,8 +33,10 @@ const customTools = [
 // const WORKER_URL = `http://localhost:5858`;
 const WORKER_URL = `http://aid-playground.hfg-gmuend.de:5858`
 // In this example, the room ID is hard-coded. You can set this however you like though.
-const roomId = "test-room-2";
+// const roomId = "test-room-2";
 // const roomId = "digital-lab";
+const roomId = "digital-lab-production";
+
 
 const CAMERA_OPTIONS: Partial<TLCameraOptions> = {
 	wheelBehavior: 'pan',
@@ -61,16 +63,21 @@ function App() {
 				// loading states & enable multiplayer UX like cursors & a presence menu
 				store={store}
 				shapeUtils={customShapes}
-				tools={customTools}
+				// tools={customTools}
 				assetUrls={customAssetUrls}
-				overrides={uiOverrides}
-				components={components}
+				// overrides={uiOverrides}
+				// components={components}
 				onMount={(editor) => {
 					// @ts-expect-error
 					window.editor = editor;
+					editor.updateInstanceState({ 
+						isReadonly: true 
+					})
+					// alert(editor.getIsReadonly)
+					// editor.getInstanceState()
 					// when the editor is ready, we need to register out bookmark unfurling service
 					editor.registerExternalAssetHandler('url', unfurlBookmarkUrl);
-					// editor.setCameraOptions(CAMERA_OPTIONS);
+					editor.setCameraOptions(CAMERA_OPTIONS);
 					// editor.updateInstanceState({ isReadonly: true })
 					// editor.setCurrentTool('hand')
 					// const defaultProps = editor.getShapeUtil('note').getDefaultProps()
