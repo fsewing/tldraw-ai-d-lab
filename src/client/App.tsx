@@ -20,8 +20,8 @@ import { components, customAssetUrls, uiOverrides } from "./shapes/ui";
 
 import { useMemo } from "react";
 import { unfurl } from "../server/unfurl";
-DefaultColorThemePalette.lightMode.black.solid = "rgb(252, 225, 156)"
-DefaultColorThemePalette.lightMode.grey.solid = "rgb(0, 0, 0)"
+// DefaultColorThemePalette.lightMode.black.solid = "rgb(252, 225, 156)"
+// DefaultColorThemePalette.lightMode.grey.solid = "rgb(0, 0, 0)"
 
 const customShapes = [CostumIFrameUtil, YoutubeVideoUtil, DeepLinkUtil,];
 const customTools = [
@@ -40,7 +40,7 @@ const roomId = "digital-lab-production";
 
 const CAMERA_OPTIONS: Partial<TLCameraOptions> = {
 	wheelBehavior: 'pan',
-	zoomSteps: [0.03, 0.01, 0.25, 0.5, 1,],
+	zoomSteps: [0.01, 0.01, 0.25, 0.5, 1, 2, 3],
 }
 
 
@@ -63,10 +63,10 @@ function App() {
 				// loading states & enable multiplayer UX like cursors & a presence menu
 				store={store}
 				shapeUtils={customShapes}
-				// tools={customTools}
+				tools={customTools}
 				assetUrls={customAssetUrls}
-				// overrides={uiOverrides}
-				// components={components}
+				overrides={uiOverrides}
+				components={components}
 				onMount={(editor) => {
 					// @ts-expect-error
 					window.editor = editor;
