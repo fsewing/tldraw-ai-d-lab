@@ -5,23 +5,25 @@ import {
 	getHashForString,
 	TLAssetStore,
 	TLBookmarkAsset,
+	TLCameraOptions,
 	Tldraw,
 	TLUiComponents,
 	uniqueId,
-	DefaultColorThemePalette,
-	TLCameraOptions,
 } from "tldraw";
 import { CostumIFrameShapeTool, CostumIFrameUtil } from "./shapes/customiframe";
 import { YoutubeVideoShapeTool, YoutubeVideoUtil } from "./shapes/youtubevideo";
 import { DeepLinkShapeTool, DeepLinkUtil } from "./shapes/deeplink";
 // import { CustomStickyNoteShapeTool, CustomStickyNoteUtil } from "./shapes/customStickyNote";
 
-import { components, customAssetUrls, uiOverrides } from "./shapes/ui";
+import { components, customAssetUrls, uiOverrides} from "./shapes/ui";
 
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 // import { unfurl } from "../server/unfurl";
 // DefaultColorThemePalette.lightMode.black.solid = "rgb(252, 225, 156)"
 // DefaultColorThemePalette.lightMode.grey.solid = "rgb(0, 0, 0)"
+
+const permissionMode = "admin" as "user" | "admin";
+// const user = "user";
 
 const customShapes = [CostumIFrameUtil, YoutubeVideoUtil, DeepLinkUtil,];
 const customTools = [
@@ -39,10 +41,9 @@ const roomId = "digital-lab-production";
 
 
 const CAMERA_OPTIONS: Partial<TLCameraOptions> = {
-	wheelBehavior: 'pan',
+	wheelBehavior: 'zoom',
 	zoomSteps: [0.01, 0.01, 0.25, 0.5, 1, 2, 3],
 }
-
 
 
 function App() {
@@ -55,6 +56,20 @@ function App() {
 		// ...and how to handle static assets like images & videos
 		assets: multiplayerAssets,
 	});
+
+	useEffect(() => {
+		console.log("Geladen");
+
+		function onLoaded() {
+			console.log("Loaded");
+		}
+
+		window.addEventListener("DOMContentLoaded", onLoaded)
+
+		return () => {
+			window.removeEventListener("DOMContentLoaded", onLoaded)
+		}
+	}, [])
 
 	return (
 		<div style={{ position: "fixed", inset: 0 }}>
@@ -70,19 +85,69 @@ function App() {
 				onMount={(editor) => {
 					// @ts-expect-error
 					window.editor = editor;
-					editor.updateInstanceState({ 
-						isReadonly: true 
-					})
+					// editor.updateInstanceState({ 
+					// 	isReadonly: true 
+					// })
 					// alert(editor.getIsReadonly)
 					// editor.getInstanceState()
-					// when the editor is ready, we need to register out bookmark unfurling service
+
+
 					editor.registerExternalAssetHandler('url', unfurlBookmarkUrl);
 					editor.setCameraOptions(CAMERA_OPTIONS);
+
+					// Jedes Erstellte Element wird einem User zugeordnet "admin" oder "user"
+
+					editor.sideEffects.registerBeforeCreateHandler('shape', (shape, source) => {
+						if (source === 'remote') return shape
+						return { ...shape, meta: { createdBy: permissionMode } }
+					})
+
+
+					editor.sideEffects.registerBeforeChangeHandler('shape', (prev, next) => {
+						const meta = prev.meta
+
+						if (permissionMode === "admin") return next;
+
+						if (
+							next.x !== prev.x ||
+							next.y !== prev.y ||
+							next.rotation !== prev.rotation ||
+							next.props.w !== prev.props.w ||
+							next.props.h !== prev.props.h ||
+							next.props?.text !== prev.props?.text
+						) {
+							return prev
+						}
+						return next
+					})
+
+
+
+					editor.sideEffects.registerBeforeDeleteHandler('shape', (shape, source) => {
+						
+						if (source === 'remote') return
+						if(permissionMode == "user"){
+							const meta = shape.meta
+							if ( meta.createdBy == "admin") return false
+						}
+						return 
+					})
+
 					// editor.updateInstanceState({ isReadonly: true })
 					// editor.setCurrentTool('hand')
 					// const defaultProps = editor.getShapeUtil('note').getDefaultProps()
 					// editor.getShapeUtil('note').getDefaultProps = () => ({...noteShapeProps})
 					// editor.setCamera();
+					editor.run(() => {
+						editor.setCamera({ x: 0, y: 0, z: 1 })
+
+						// editor.navigateToDeepLink({
+						// 	param: 'x',
+						// 	url: "http://aid-playground.hfg-gmuend.de:5757/?d=v-1051.-555.2490.1328.FpSlTxKLejyf4jWDhOBG2",
+						// });
+						// editor.createShape({type: 'note', x: 0, y: 0, props: { text: 'ok' } })
+					})
+					
 				}}
 
 				deepLinks={{

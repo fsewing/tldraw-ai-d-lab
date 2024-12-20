@@ -7,8 +7,18 @@ import {
 	useIsToolSelected,
 	useTools,
 	TLUiAssetUrlOverrides,
+	TldrawUiDialogHeader,
+	TldrawUiDialogTitle,
+	TldrawUiDialogCloseButton,
+	TldrawUiDialogBody,
+	TldrawUiDialogFooter,
+	TldrawUiButton,
+	TldrawUiButtonLabel,
+	useDialogs,
+	Editor,
 } from "tldraw";
 import { DeepLinkToolbarComponent } from "./DeepLinkToolbar";
+import { useEffect } from "react";
 
 export const uiOverrides: TLUiOverrides = {
 	tools(editor, tools) {
@@ -62,6 +72,47 @@ export const uiOverrides: TLUiOverrides = {
 	},
 };
 
+function MyDialog({ onClose }: { onClose(): void }) {
+	return (
+		<>
+			<TldrawUiDialogHeader>
+				<TldrawUiDialogTitle>Title</TldrawUiDialogTitle>
+				<TldrawUiDialogCloseButton />
+			</TldrawUiDialogHeader>
+			<TldrawUiDialogBody style={{ maxWidth: 350 }}>Description...</TldrawUiDialogBody>
+			<TldrawUiDialogFooter className="tlui-dialog__footer__actions">
+				<TldrawUiButton type="normal" onClick={onClose}>
+					<TldrawUiButtonLabel>Cancel</TldrawUiButtonLabel>
+				</TldrawUiButton>
+				<TldrawUiButton type="primary" onClick={onClose}>
+					<TldrawUiButtonLabel>Continue</TldrawUiButtonLabel>
+				</TldrawUiButton>
+			</TldrawUiDialogFooter>
+		</>
+	)
+}
+
+const CustomSharePanel = () => {
+	const { addDialog } = useDialogs()
+
+	return (
+		window.onload = function(){
+			addDialog({
+				component: MyDialog,
+				onClose() {
+					// You can do something after the dialog is closed
+					void null
+				},
+			})
+		}
+	)
+}
+
+// const components: TLComponents = {
+// 	SharePanel: CustomSharePanel,
+// }
+
+
 export const components: TLComponents = {
 	// ContextMenu: null,
 	// ActionsMenu: null,
@@ -78,7 +129,7 @@ export const components: TLComponents = {
 	// HelperButtons: null,
 	// DebugPanel: null,
 	// DebugMenu: null,
-	// SharePanel: null,
+	//SharePanel: CustomSharePanel,
 	// MenuPanel: null,
 	// TopPanel: null,
 	// CursorChatBubble: null,
@@ -125,8 +176,8 @@ export const components: TLComponents = {
 export const customAssetUrls: TLUiAssetUrlOverrides = {
 	// relative from the file that requests the assets (e.g. App.tsx)
 	icons: {
-		customiframe: "./assets/icons/customiframe.svg",
-		youtubevideo: "./assets/icons/youtubevideo.svg",
-		deeplink: "./assets/icons/deeplink.svg",
+		customiframe: "../assets/icons/customiframe.svg",
+		youtubevideo: "../assets/icons/youtubevideo.svg",
+		deeplink: "../assets/icons/deeplink.svg",
 	},
 };

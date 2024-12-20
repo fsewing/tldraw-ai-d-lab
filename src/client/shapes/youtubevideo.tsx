@@ -2,8 +2,11 @@ import {
 	BaseBoxShapeTool,
 	BaseBoxShapeUtil,
 	HTMLContainer,
+	JsonObject,
+	Rectangle2d,
 	T,
 	TLBaseShape,
+	TLShapeId,
 	stopEventPropagation,
 } from "tldraw";
 import { parseYouTubeUrl } from "../ts/functions";
@@ -34,7 +37,7 @@ export class YoutubeVideoUtil extends BaseBoxShapeUtil<YoutubeVideoShape> {
 		return true;
 	}
 	override canResize() {
-		return true;
+		return false;
 	}
 	override hideRotateHandle() {
 		return true;
@@ -43,15 +46,13 @@ export class YoutubeVideoUtil extends BaseBoxShapeUtil<YoutubeVideoShape> {
 		return true;
 	}
 
-	// override getGeometry() {
-	// 	return new Rectangle2d({
-	// 		width: 32,
-	// 		height: 32,
-	// 		x: offsetX,
-	// 		y: offsetY,
-	// 		isFilled: true,
-	// 	})
-	// }
+	override getGeometry() {
+		return new Rectangle2d({
+			width: 320,
+			height: 180,
+			isFilled: true,
+		})
+	}
 
 	override component(shape: YoutubeVideoShape) {
 		const isEditing = this.editor.getEditingShapeId() === shape.id;
