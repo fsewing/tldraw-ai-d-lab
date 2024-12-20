@@ -22,7 +22,7 @@ import { useEffect, useMemo } from "react";
 // DefaultColorThemePalette.lightMode.black.solid = "rgb(252, 225, 156)"
 // DefaultColorThemePalette.lightMode.grey.solid = "rgb(0, 0, 0)"
 
-const permissionMode = "admin" as "user" | "admin";
+const permissionMode = "visitor" as "user" | "admin" | "student" | "visitor";
 // const user = "user";
 
 const customShapes = [CostumIFrameUtil, YoutubeVideoUtil, DeepLinkUtil,];
@@ -32,8 +32,8 @@ const customTools = [
 	DeepLinkShapeTool,
 ];
 
-const WORKER_URL = `http://localhost:5858`;
-// const WORKER_URL = `http://aid-playground.hfg-gmuend.de:5858`
+// const WORKER_URL = `http://localhost:5858`;
+const WORKER_URL = `http://aid-playground.hfg-gmuend.de:5858`
 // In this example, the room ID is hard-coded. You can set this however you like though.
 // const roomId = "test-room-2";
 // const roomId = "digital-lab";
@@ -108,13 +108,17 @@ function App() {
 
 						if (permissionMode === "admin") return next;
 
+						if (permissionMode === "student" && meta.createdBy === "student") return next;
+						
 						if (
 							next.x !== prev.x ||
 							next.y !== prev.y ||
 							next.rotation !== prev.rotation ||
 							next.props.w !== prev.props.w ||
 							next.props.h !== prev.props.h ||
-							next.props?.text !== prev.props?.text
+							next.props?.text !== prev.props?.text ||
+							next.props?.url !== prev.props?.url ||
+							next.props?.description !== prev.props?.description
 						) {
 							return prev
 						}
