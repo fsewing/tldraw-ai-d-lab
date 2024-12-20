@@ -22,7 +22,7 @@ import { useEffect, useMemo } from "react";
 // DefaultColorThemePalette.lightMode.black.solid = "rgb(252, 225, 156)"
 // DefaultColorThemePalette.lightMode.grey.solid = "rgb(0, 0, 0)"
 
-const permissionMode = "visitor" as "user" | "admin" | "student" | "visitor";
+const permissionMode = "admin" as "user" | "admin" | "student" | "visitor";
 // const user = "user";
 
 const customShapes = [CostumIFrameUtil, YoutubeVideoUtil, DeepLinkUtil,];
